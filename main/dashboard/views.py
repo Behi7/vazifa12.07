@@ -1,7 +1,7 @@
 from main import models
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
-
+from decorators import *
 
 @login_required(login_url='index')
 def blog_create(request):
@@ -26,10 +26,13 @@ def blog_create(request):
 #             blog.image = blog.image
 #             blog.save()
 #     return render(request, 'dashboard/update-blog.html', {'blog':blog})
+
+@is_owner
 @login_required
 def blog_update(request, id):
     blog = models.Blog.objects.get(id=id)
     original_image = blog.image
+    print(request.user)
 
     if request.method == 'POST':
         form_data = request.POST
@@ -42,6 +45,7 @@ def blog_update(request, id):
     return render(request, 'dashboard/update-blog.html', {'blog': blog})
 
 
+@is_owner
 @login_required
 def blog_delete(request, id):
     models.Blog.objects.get(id=id).delete()
@@ -52,3 +56,4 @@ def blog_delete(request, id):
 def my_blogs(request):
     blogs = models.Blog.objects.filter(author = request.user)
     return render(request, 'dashboard/list-blogs.html', {'blogs':blogs})
+

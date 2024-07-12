@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from . import models
 
 
+
 def blogs(request):
     posts = models.Blog.objects.all()
     # for post in posts:
@@ -35,3 +36,5 @@ def comment_create(request):
     )
     return redirect('blog_detail', blog_id)
 
+
+        
