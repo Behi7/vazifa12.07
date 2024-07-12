@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <style>
+        table{
+            width: 100%;
+            border-collapse: collapse;
+        }
+        thead{
+            text-align:left;
+        }
+        th, td {
+            border: 2px solid black;
+            padding: 10px;
+        }
+        .archive-area table {
+  width: 100%; /* Ensure table fills the available width */
+  border-collapse: collapse; /* Remove cell spacing */
+}
+.my-font {
+    font-family: Arial, sans-serif; /* Specify font family */
+    font-size: 16px;                /* Set font size */
+    font-weight: bold;              /* Make font bold */
+    color: #333;                   /* Set text color */
+    text-decoration: none;          /* Remove underline */
+}
+
+.archive-area th, .archive-area td {
+  border: 1px solid #ccc; /* Add borders to cells */
+  padding: 10px; /* Add padding for readability */
+  text-align: left; /* Align text to the left by default */
+}
+
+.archive-area th {
+  background-color: #f2f2f2; /* Add header background color */
+}
+
+    </style>
+    <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+    <!-- Title -->
+    <title>FN20</title>
+
+    <!-- Favicon -->
+    <link rel="icon" href="{% static 'img/core-img/favicon.ico' %}">
+
+    <!-- Core Stylesheet -->
+    <link href="{% static 'style.css' %}" rel="stylesheet">
+
+    <!-- Responsive CSS -->
+    <link href="{% static 'css/responsive/responsive.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+
+</head>
+
+<body>
+    <!-- Preloader Start -->
+    <div id="preloader">
+        <div class="yummy-load"></div>
+    </div>
+
+    <!-- Background Pattern Swither -->
+
+    <!-- ****** Top Header Area Start ****** -->
+    <div class="top_header_area">
+        <div class="container">
+            <div class="row">
+                <div class="col-5 col-sm-6">
+                    <!--  Top Social bar start -->
+                </div>
+                <!--  Login Register Area -->
+                <div class="col-7 col-sm-6">
+                    <div class="signup-search-area d-flex align-items-center justify-content-end">
+                        {% if user.is_authenticated %}
+                        <div class="login_register_area d-flex">
+                            <div class="login">
+                                <a href="#">Salom {{user.username}}</a> <a href="{% url 'log_out' %}"> chiqish</a>
+                           </div>
+                        </div>
+                        {% else %}
+                        <div class="login_register_area d-flex">
+                            <div class="login">
+                                <a href="{% url 'login_user' %}">Sing in</a>
+                            </div>
+                            <div class="register">
+                                <a href="{% url 'register_user' %}">Sing up</a>
+                            </div>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ****** Top Header Area End ****** -->
+
+    <!-- ****** Header Area Start ****** -->
+    <header class="header_area">
+        <div class="container">
+            <div class="row">
+                <!-- Logo Area Start -->
+                <div class="col-12">
+                    <div class="logo_area text-center">
+                        <a href="#" class="yummy-logo">FN20</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- ****** Header Area End ****** -->
+
+    <!-- ****** Archive Area Start ****** -->
+    <section class="archive-area section_padding_80">
+        <div class="container">
+            <div class="row">
+                <div class="col-3"></div>
+                <div class="col-12 col-md-7 item" style="height: 544px;">
+                    <a href="{% url 'blog_create' %}" class="btn btn-success" >+ Create Blog</a>
+                    <br> <br>
+                    <table class="table">
+                        <thead>
+                          <tr>
+                            <th scope="col">id</th>
+                            <th scope="col">title</th>
+                            <th scope="col"></th>
+                            <th scope="col"></th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                            {% for blog in blogs %}
+                          <tr>
+                            <th scope="row">{{blog.id}}</th>
+                            <td>{{blog.title}}</td>
+                            <td><i class="fa-solid fa-pen"><a class="my-font" style="color: black;" href="{% url 'blog_update' blog.id %}"> update</a></i></td>
+                            <td><i class="fa-solid fa-trash"><a class="my-font" style="color: black;" href="{% url 'blog_delete' blog.id %}"> delete</a></i></td>
+                          </tr>
+                          {% endfor %}
+                        </tbody>
+                      </table>
+                </div>
+            </div>
+
+                <!-- <div class="col-12">
+                    <div class="pagination-area d-sm-flex mt-15">
+                        <nav aria-label="#">
+                            <ul class="pagination">
+                                <li class="page-item active">
+                                    <a class="page-link" href="#">1 <span class="sr-only">(current)</span></a>
+                                </li>
+                                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                <li class="page-item">
+                                    <a class="page-link" href="#">Next <i class="fa fa-angle-double-right" aria-hidden="true"></i></a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div> -->
+
+            </div>
+        </div>
+    </section>
+    <!-- ****** Archive Area End ****** -->
+
+
+
+
+
+    <!-- Jquery-2.2.4 js -->
+    <script src="{% static 'js/jquery/jquery-2.2.4.min.js' %}"></script>
+    <!-- Popper js -->
+    <script src="{% static 'js/bootstrap/popper.min.js' %}"></script>
+    <!-- Bootstrap-4 js -->
+    <script src="{% static 'js/bootstrap/bootstrap.min.js' %}"></script>
+    <!-- All Plugins JS -->
+    <script src="{% static 'js/others/plugins.js' %}"></script>
+    <!-- Active JS -->
+    <script src="{% static 'js/active.js' %}"></script>
+</body>
